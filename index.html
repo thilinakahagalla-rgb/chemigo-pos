@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chemigo POS</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1', // Indigo 500
+                        secondary: '#ec4899', // Pink 500
+                        dark: {
+                            bg: '#0f172a', // Slate 900
+                            card: '#1e293b', // Slate 800
+                            input: '#334155', // Slate 700
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'slide-in': 'slideIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white font-sans overflow-hidden h-screen selection:bg-primary selection:text-white">
+
+    <!-- Background Ambience -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px] animate-pulse">
+        </div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/20 rounded-full blur-[100px] animate-pulse"
+            style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside
+            class="w-20 lg:w-64 bg-slate-800/50 backdrop-blur-xl border-r border-white/10 flex flex-col transition-all duration-300 z-20">
+            <!-- Logo -->
+            <div class="h-20 flex items-center justify-center border-b border-white/10 p-4">
+                <div class="flex items-center gap-3">
+                    <img src="logo.png" alt="Chemigo" class="w-10 h-10 object-contain drop-shadow-lg">
+                    <span
+                        class="hidden lg:block text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wide">CHEMIGO</span>
+                </div>
+            </div>
+
+            <!-- Nav Links -->
+            <nav class="flex-1 overflow-y-auto py-6 flex flex-col gap-2 px-3">
+                <button onclick="router.navigate('pos')" class="nav-btn group active" data-target="pos">
+                    <i class="fa-solid fa-cash-register text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">POS System</span>
+                </button>
+                <button onclick="router.navigate('products')" class="nav-btn group" data-target="products">
+                    <i class="fa-solid fa-boxes-stacked text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Products</span>
+                </button>
+                <button onclick="router.navigate('inventory')" class="nav-btn group" data-target="inventory">
+                    <i class="fa-solid fa-clipboard-check text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Inventory</span>
+                </button>
+                <button onclick="router.navigate('customers')" class="nav-btn group" data-target="customers">
+                    <i class="fa-solid fa-users text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Customers</span>
+                </button>
+                <button onclick="router.navigate('expenses')" class="nav-btn group" data-target="expenses">
+                    <i class="fa-solid fa-file-invoice-dollar text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Expenses</span>
+                </button>
+                <button onclick="router.navigate('accounts')" class="nav-btn group" data-target="accounts">
+                    <i class="fa-solid fa-building-columns text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Accounts</span>
+                </button>
+                <button onclick="router.navigate('sales')" class="nav-btn group" data-target="sales">
+                    <i class="fa-solid fa-receipt text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Bills</span>
+                </button>
+                <button onclick="router.navigate('deliveries')" class="nav-btn group" data-target="deliveries">
+                    <i class="fa-solid fa-truck text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Deliveries</span>
+                </button>
+                <button onclick="router.navigate('reports')" class="nav-btn group" data-target="reports">
+                    <i class="fa-solid fa-chart-pie text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Reports</span>
+                </button>
+                <button onclick="router.navigate('backup')" class="nav-btn group" data-target="backup">
+                    <i class="fa-solid fa-database text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Database</span>
+                </button>
+                <button onclick="actions.safeExit()"
+                    class="nav-btn group border-t border-white/5 mt-2 hover:bg-red-500/10 text-red-400">
+                    <i class="fa-solid fa-power-off text-xl group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block">Safe Exit</span>
+                </button>
+            </nav>
+
+            <!-- User Profile / Settings -->
+            <div class="p-4 border-t border-white/10">
+                <button class="flex items-center gap-3 w-full p-2 rounded-xl hover:bg-white/5 transition-colors">
+                    <div
+                        class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-xs font-bold">
+                        A
+                    </div>
+                    <div class="hidden lg:block text-left">
+                        <p class="text-sm font-medium">Admin User</p>
+                        <p class="text-xs text-gray-400">Owner</p>
+                    </div>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col relative overflow-hidden">
+            <!-- Top Bar -->
+            <header
+                class="h-16 bg-slate-800/30 backdrop-blur-md border-b border-white/10 flex items-center justify-between px-6 z-10">
+                <h2 id="page-title" class="text-xl font-semibold text-white/90">Dashboard</h2>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..."
+                            class="bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-sm focus:outline-none focus:border-primary/50 w-64 transition-all">
+                        <i
+                            class="fa-solid fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    </div>
+                    <button
+                        class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors relative">
+                        <i class="fa-solid fa-bell text-gray-300 text-sm"></i>
+                        <span
+                            class="absolute top-1.5 right-2 w-2 h-2 bg-red-500 rounded-full border border-slate-900"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div id="app-content" class="flex-1 overflow-y-auto p-6 scrollbar-hide relative">
+                <!-- Views will be injected here -->
+            </div>
+
+            <!-- Toast Notification Container -->
+            <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-backdrop"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="modal-content"
+            class="bg-slate-800 rounded-2xl shadow-2xl border border-white/10 w-full max-w-2xl transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+            <!-- Modal content injected here -->
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
