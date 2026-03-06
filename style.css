@@ -134,3 +134,78 @@ input:focus, select:focus, textarea:focus {
 .modal-content-show {
     transform: scale(1) !important;
 }
+
+/* Scrollbar Utility */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 1023px) {
+    .nav-btn {
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        padding: 4px 8px;
+        min-width: 65px;
+        border: none;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .nav-btn i {
+        font-size: 1.1rem;
+    }
+
+    .nav-btn.active {
+        color: #6366f1;
+    }
+
+    /* Compact Header on Mobile */
+    header {
+        height: 3.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    #page-title {
+        font-size: 1rem;
+    }
+
+    /* Content Area Adjustment */
+    #app-content {
+        padding: 1rem !important;
+    }
+
+    /* Table Mobile Friendly - Scrollable */
+    .overflow-x-auto {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-glass {
+        min-width: 600px;
+    }
+
+    /* POS Adjustments */
+    #pos-search {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    #product-grid {
+        gap: 0.5rem !important;
+    }
+}
+
+/* Smallest devices adjustment */
+@media (max-width: 480px) {
+    header input {
+        display: none; /* Hide search in top bar for very small screens */
+    }
+}
+

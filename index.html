@@ -74,12 +74,12 @@
             style="animation-delay: 1s;"></div>
     </div>
 
-    <div class="flex h-full">
-        <!-- Sidebar -->
+    <div class="flex flex-col lg:flex-row h-full overflow-hidden">
+        <!-- Sidebar / Bottom Navigation -->
         <aside
-            class="w-20 lg:w-64 bg-slate-800/50 backdrop-blur-xl border-r border-white/10 flex flex-col transition-all duration-300 z-20">
+            class="order-last lg:order-first w-full h-[70px] lg:w-64 lg:h-full bg-slate-800/50 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/10 flex flex-row lg:flex-col transition-all duration-300 z-50">
             <!-- Logo -->
-            <div class="h-20 flex items-center justify-center border-b border-white/10 p-4">
+            <div class="hidden lg:flex h-20 items-center justify-center border-b border-white/10 p-4 shrink-0">
                 <div class="flex items-center gap-3">
                     <img src="logo.png" alt="Chemigo" class="w-10 h-10 object-contain drop-shadow-lg">
                     <span
@@ -88,63 +88,63 @@
             </div>
 
             <!-- Nav Links -->
-            <nav class="flex-1 overflow-y-auto py-6 flex flex-col gap-2 px-3">
+            <nav
+                class="flex-1 flex flex-row lg:flex-col items-center lg:items-stretch gap-1 lg:gap-2 px-2 lg:px-3 py-1 lg:py-6 overflow-x-auto lg:overflow-y-auto scrollbar-hide">
                 <button onclick="router.navigate('pos')" class="nav-btn group active" data-target="pos">
                     <i class="fa-solid fa-cash-register text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">POS System</span>
+                    <span class="lg:block text-[10px] lg:text-sm">POS</span>
                 </button>
                 <button onclick="router.navigate('products')" class="nav-btn group" data-target="products">
                     <i class="fa-solid fa-boxes-stacked text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Products</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Products</span>
                 </button>
                 <button onclick="router.navigate('inventory')" class="nav-btn group" data-target="inventory">
                     <i class="fa-solid fa-clipboard-check text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Inventory</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Stock</span>
                 </button>
                 <button onclick="router.navigate('customers')" class="nav-btn group" data-target="customers">
                     <i class="fa-solid fa-users text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Customers</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Users</span>
                 </button>
                 <button onclick="router.navigate('expenses')" class="nav-btn group" data-target="expenses">
                     <i class="fa-solid fa-file-invoice-dollar text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Expenses</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Costs</span>
                 </button>
                 <button onclick="router.navigate('accounts')" class="nav-btn group" data-target="accounts">
                     <i class="fa-solid fa-building-columns text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Accounts</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Bank</span>
                 </button>
                 <button onclick="router.navigate('sales')" class="nav-btn group" data-target="sales">
                     <i class="fa-solid fa-receipt text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Bills</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Bills</span>
                 </button>
                 <button onclick="router.navigate('deliveries')" class="nav-btn group" data-target="deliveries">
                     <i class="fa-solid fa-truck text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Deliveries</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Orders</span>
                 </button>
                 <button onclick="router.navigate('reports')" class="nav-btn group" data-target="reports">
                     <i class="fa-solid fa-chart-pie text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Reports</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Stats</span>
                 </button>
                 <button onclick="router.navigate('backup')" class="nav-btn group" data-target="backup">
                     <i class="fa-solid fa-database text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Database</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Database</span>
                 </button>
-                <button onclick="actions.safeExit()"
-                    class="nav-btn group border-t border-white/5 mt-2 hover:bg-red-500/10 text-red-400">
+                <button onclick="actions.safeExit()" class="nav-btn group text-red-400">
                     <i class="fa-solid fa-power-off text-xl group-hover:scale-110 transition-transform"></i>
-                    <span class="hidden lg:block">Safe Exit</span>
+                    <span class="lg:block text-[10px] lg:text-sm">Exit</span>
                 </button>
             </nav>
 
-            <!-- User Profile / Settings -->
-            <div class="p-4 border-t border-white/10">
+            <!-- User Profile / Settings (Desktop Only) -->
+            <div class="hidden lg:block p-4 border-t border-white/10 shrink-0">
                 <button class="flex items-center gap-3 w-full p-2 rounded-xl hover:bg-white/5 transition-colors">
                     <div
-                        class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-xs font-bold">
+                        class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-xs font-bold text-white">
                         A
                     </div>
                     <div class="hidden lg:block text-left">
-                        <p class="text-sm font-medium">Admin User</p>
+                        <p class="text-sm font-medium">Admin</p>
                         <p class="text-xs text-gray-400">Owner</p>
                     </div>
                 </button>

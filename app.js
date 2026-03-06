@@ -129,13 +129,13 @@ const views = {
 
                 <!-- Floating Cart Toggle (Mobile) -->
                 <button onclick="document.getElementById('mobile-cart').classList.toggle('translate-y-full')" 
-                    class="lg:hidden fixed bottom-20 right-4 bg-primary text-white p-4 rounded-full shadow-2xl z-40 flex items-center gap-2 animate-bounce-custom">
+                    class="lg:hidden fixed bottom-24 right-4 bg-primary text-white p-4 rounded-full shadow-2xl z-40 flex items-center gap-2 animate-bounce-custom">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span id="mobile-cart-count" class="font-bold">0</span>
                 </button>
 
                 <!-- Cart Section (Responsive) -->
-                <div id="mobile-cart" class="fixed inset-x-0 bottom-0 top-20 bg-slate-900 z-50 transform translate-y-full transition-transform duration-300 lg:translate-y-0 lg:static lg:w-[400px] lg:bg-transparent lg:block glass-panel rounded-t-2xl lg:rounded-2xl flex flex-col h-full border-l-0 lg:border-l-4 border-primary/20">
+                <div id="mobile-cart" class="fixed inset-x-0 bottom-[70px] top-16 bg-slate-900 z-50 transform translate-y-full transition-transform duration-300 lg:translate-y-0 lg:static lg:w-[400px] lg:bg-transparent lg:block glass-panel rounded-t-2xl lg:rounded-2xl flex flex-col h-auto lg:h-full border-l-0 lg:border-l-4 border-primary/20">
                     <div class="p-4 border-b border-white/10 flex justify-between items-center bg-slate-800/50 rounded-t-2xl shrink-0">
                         <h3 class="font-bold text-lg"><i class="fa-solid fa-cart-shopping mr-2 text-primary"></i> Current Sale</h3>
                         <div class="flex items-center gap-3">
